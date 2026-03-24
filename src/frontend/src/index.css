@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Figtree";
+  src: url("/assets/fonts/Figtree.woff2") format("woff2");
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+
+    /* Anime streaming dark theme */
+    --background: 0.08 0 0;
+    --foreground: 0.97 0 0;
+    --card: 0.12 0 0;
+    --card-foreground: 0.97 0 0;
+    --popover: 0.15 0 0;
+    --popover-foreground: 0.97 0 0;
+
+    /* Orange accent: #F47521 -> oklch approx */
+    --primary: 0.68 0.18 49;
+    --primary-foreground: 1 0 0;
+
+    --secondary: 0.18 0 0;
+    --secondary-foreground: 0.97 0 0;
+    --muted: 0.16 0 0;
+    --muted-foreground: 0.55 0 0;
+    --accent: 0.68 0.18 49;
+    --accent-foreground: 1 0 0;
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+    --border: 0.22 0 0;
+    --input: 0.14 0 0;
+    --ring: 0.68 0.18 49;
+
+    --chart-1: 0.646 0.222 41.116;
+    --chart-2: 0.6 0.118 184.704;
+    --chart-3: 0.398 0.07 227.392;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+    --sidebar: 0.1 0 0;
+    --sidebar-foreground: 0.97 0 0;
+    --sidebar-primary: 0.68 0.18 49;
+    --sidebar-primary-foreground: 1 0 0;
+    --sidebar-accent: 0.16 0 0;
+    --sidebar-accent-foreground: 0.97 0 0;
+    --sidebar-border: 0.22 0 0;
+    --sidebar-ring: 0.68 0.18 49;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Figtree", system-ui, sans-serif;
+  }
+}
+
+/* Anime card hover effect */
+.anime-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.anime-card:hover {
+  transform: scale(1.04) translateY(-4px);
+  box-shadow: 0 0 24px 4px oklch(0.68 0.18 49 / 0.45);
+}
+
+/* Orange glow button */
+.btn-orange {
+  background: oklch(0.68 0.18 49);
+  color: white;
+  transition: filter 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-orange:hover {
+  filter: brightness(1.15);
+  box-shadow: 0 0 14px 2px oklch(0.68 0.18 49 / 0.6);
+}
+
+/* Video progress/volume slider orange */
+.slider-orange {
+  accent-color: oklch(0.68 0.18 49);
+  cursor: pointer;
+}
+.slider-orange::-webkit-slider-thumb {
+  background: oklch(0.68 0.18 49);
+}
+.slider-orange::-moz-range-thumb {
+  background: oklch(0.68 0.18 49);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: oklch(0.1 0 0);
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(0.25 0 0);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.68 0.18 49);
+}
+
+/* Hero gradient overlay */
+.hero-overlay {
+  background: linear-gradient(
+    to right,
+    oklch(0.08 0 0 / 0.95) 0%,
+    oklch(0.08 0 0 / 0.7) 50%,
+    transparent 100%
+  );
+}
+
+/* Card thumbnail aspect ratio */
+.thumb-container {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 */
+  overflow: hidden;
+  background: oklch(0.15 0 0);
+}
+.thumb-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.anime-card:hover .thumb-container img {
+  transform: scale(1.06);
+}
+
+/* Video player dark container */
+.video-wrapper {
+  background: #000;
+  position: relative;
+  width: 100%;
+}
+
+/* Admin form input focus */
+.admin-input {
+  background: oklch(0.14 0 0);
+  border: 1px solid oklch(0.25 0 0);
+  color: oklch(0.97 0 0);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.admin-input:focus {
+  border-color: oklch(0.68 0.18 49);
+  box-shadow: 0 0 0 2px oklch(0.68 0.18 49 / 0.2);
+}
