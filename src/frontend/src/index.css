@@ -1,6 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@font-face {
+  font-family: "BricolageGrotesque";
+  src: url("/assets/fonts/BricolageGrotesque.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+}
 
 @font-face {
   font-family: "Figtree";
@@ -9,163 +12,133 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: "Bricolage Grotesque";
-  src: url("/assets/fonts/BricolageGrotesque.woff2") format("woff2");
-  font-weight: 200 800;
-  font-display: swap;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   :root {
+    /* AnimeVibe dark theme — matches design spec exactly */
+    /* #0B0C0F */
+    --background: 0.09 0.005 255;
+    /* #F2F3F5 */
+    --foreground: 0.96 0.005 80;
+    /* #1A1C21 */
+    --card: 0.14 0.007 250;
+    --card-foreground: 0.96 0.005 80;
+    /* #20222A */
+    --popover: 0.16 0.008 250;
+    --popover-foreground: 0.96 0.005 80;
+    /* #FF6A2A — orange accent */
+    --primary: 0.68 0.2 42;
+    --primary-foreground: 0.08 0 0;
+    /* #20222A */
+    --secondary: 0.16 0.008 250;
+    --secondary-foreground: 0.85 0.005 80;
+    /* muted */
+    --muted: 0.18 0.006 250;
+    /* #A7ABB4 */
+    --muted-foreground: 0.68 0.01 250;
+    --accent: 0.68 0.2 42;
+    --accent-foreground: 0.08 0 0;
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.98 0 0;
+    /* #2A2D36 */
+    --border: 0.22 0.009 250;
+    --input: 0.2 0.007 250;
+    --ring: 0.68 0.2 42;
     --radius: 0.75rem;
-
-    /* Anime streaming dark theme */
-    --background: 0.08 0 0;
-    --foreground: 0.97 0 0;
-    --card: 0.12 0 0;
-    --card-foreground: 0.97 0 0;
-    --popover: 0.15 0 0;
-    --popover-foreground: 0.97 0 0;
-
-    /* Orange accent: #F47521 -> oklch approx */
-    --primary: 0.68 0.18 49;
-    --primary-foreground: 1 0 0;
-
-    --secondary: 0.18 0 0;
-    --secondary-foreground: 0.97 0 0;
-    --muted: 0.16 0 0;
-    --muted-foreground: 0.55 0 0;
-    --accent: 0.68 0.18 49;
-    --accent-foreground: 1 0 0;
-    --destructive: 0.577 0.245 27.325;
-    --destructive-foreground: 0.985 0 0;
-    --border: 0.22 0 0;
-    --input: 0.14 0 0;
-    --ring: 0.68 0.18 49;
-
-    --chart-1: 0.646 0.222 41.116;
-    --chart-2: 0.6 0.118 184.704;
-    --chart-3: 0.398 0.07 227.392;
-    --chart-4: 0.828 0.189 84.429;
-    --chart-5: 0.769 0.188 70.08;
-    --sidebar: 0.1 0 0;
-    --sidebar-foreground: 0.97 0 0;
-    --sidebar-primary: 0.68 0.18 49;
-    --sidebar-primary-foreground: 1 0 0;
-    --sidebar-accent: 0.16 0 0;
-    --sidebar-accent-foreground: 0.97 0 0;
-    --sidebar-border: 0.22 0 0;
-    --sidebar-ring: 0.68 0.18 49;
+    --chart-1: 0.68 0.2 42;
+    --chart-2: 0.65 0.18 200;
+    --chart-3: 0.6 0.17 160;
+    --chart-4: 0.58 0.16 280;
+    --chart-5: 0.55 0.15 10;
+    --sidebar: 0.12 0.006 250;
+    --sidebar-foreground: 0.85 0.005 80;
+    --sidebar-primary: 0.68 0.2 42;
+    --sidebar-primary-foreground: 0.08 0 0;
+    --sidebar-accent: 0.18 0.007 250;
+    --sidebar-accent-foreground: 0.85 0.005 80;
+    --sidebar-border: 0.22 0.009 250;
+    --sidebar-ring: 0.68 0.2 42;
   }
+}
 
+@layer base {
   * {
     @apply border-border;
   }
 
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
-    font-family: "Figtree", system-ui, sans-serif;
+    font-family: "Figtree", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
   }
 }
 
-/* Anime card hover effect */
-.anime-card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-.anime-card:hover {
-  transform: scale(1.04) translateY(-4px);
-  box-shadow: 0 0 24px 4px oklch(0.68 0.18 49 / 0.45);
-}
-
-/* Orange glow button */
-.btn-orange {
-  background: oklch(0.68 0.18 49);
-  color: white;
-  transition: filter 0.2s ease, box-shadow 0.2s ease;
-}
-.btn-orange:hover {
-  filter: brightness(1.15);
-  box-shadow: 0 0 14px 2px oklch(0.68 0.18 49 / 0.6);
-}
-
-/* Video progress/volume slider orange */
-.slider-orange {
-  accent-color: oklch(0.68 0.18 49);
-  cursor: pointer;
-}
-.slider-orange::-webkit-slider-thumb {
-  background: oklch(0.68 0.18 49);
-}
-.slider-orange::-moz-range-thumb {
-  background: oklch(0.68 0.18 49);
-}
-
-/* Scrollbar */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: oklch(0.1 0 0);
+  background: oklch(0.12 0.006 250);
 }
 ::-webkit-scrollbar-thumb {
-  background: oklch(0.25 0 0);
+  background: oklch(0.28 0.01 250);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: oklch(0.68 0.18 49);
+  background: oklch(0.68 0.2 42);
 }
 
-/* Hero gradient overlay */
-.hero-overlay {
+/* Hero text gradient */
+.hero-title-gradient {
   background: linear-gradient(
-    to right,
-    oklch(0.08 0 0 / 0.95) 0%,
-    oklch(0.08 0 0 / 0.7) 50%,
-    transparent 100%
+    135deg,
+    oklch(0.96 0.005 80) 0%,
+    oklch(0.68 0.2 42) 100%
   );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Card thumbnail aspect ratio */
-.thumb-container {
-  position: relative;
-  width: 100%;
-  padding-top: 56.25%; /* 16:9 */
-  overflow: hidden;
-  background: oklch(0.15 0 0);
+/* Card hover glow */
+.anime-card .card-glow {
+  opacity: 0;
+  transition: opacity 0.3s;
 }
-.thumb-container img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-.anime-card:hover .thumb-container img {
-  transform: scale(1.06);
+.anime-card:hover .card-glow {
+  opacity: 1;
 }
 
-/* Video player dark container */
-.video-wrapper {
-  background: #000;
-  position: relative;
-  width: 100%;
+/* Horizontal scroll row */
+.scroll-row {
+  scrollbar-width: none;
+}
+.scroll-row::-webkit-scrollbar {
+  display: none;
 }
 
-/* Admin form input focus */
-.admin-input {
-  background: oklch(0.14 0 0);
-  border: 1px solid oklch(0.25 0 0);
-  color: oklch(0.97 0 0);
-  border-radius: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  width: 100%;
-  outline: none;
-  transition: border-color 0.2s;
+/* Genre pill hover */
+.genre-pill {
+  transition: background 0.2s, color 0.2s, transform 0.15s;
 }
-.admin-input:focus {
-  border-color: oklch(0.68 0.18 49);
-  box-shadow: 0 0 0 2px oklch(0.68 0.18 49 / 0.2);
+.genre-pill:hover {
+  background: oklch(0.68 0.2 42 / 0.15);
+  color: oklch(0.68 0.2 42);
+  transform: scale(1.03);
+}
+
+/* Navbar solid on scroll */
+.navbar-solid {
+  background: oklch(0.09 0.005 255 / 0.97) !important;
+  border-color: oklch(0.22 0.009 250) !important;
 }

@@ -8,10 +8,60 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
-export const idlService = IDL.Service({});
+const AnimeEntry = IDL.Record({
+  'id': IDL.Nat,
+  'title': IDL.Text,
+  'description': IDL.Text,
+  'thumbnailBlobId': IDL.Text,
+  'videoBlobId': IDL.Text,
+});
+
+const SiteSettings = IDL.Record({
+  'siteName': IDL.Text,
+  'logoUrl': IDL.Text,
+  'heroBlobId': IDL.Text,
+  'bgBlobId': IDL.Text,
+  'bgType': IDL.Text,
+  'bgColor': IDL.Text,
+});
+
+export const idlService = IDL.Service({
+  'addAnime': IDL.Func([IDL.Text, IDL.Text, IDL.Text, IDL.Text], [IDL.Nat], []),
+  'updateAnime': IDL.Func([IDL.Nat, IDL.Text, IDL.Text, IDL.Text, IDL.Text], [IDL.Bool], []),
+  'deleteAnime': IDL.Func([IDL.Nat], [IDL.Bool], []),
+  'getAllAnime': IDL.Func([], [IDL.Vec(AnimeEntry)], ['query']),
+  'getAnime': IDL.Func([IDL.Nat], [IDL.Opt(AnimeEntry)], ['query']),
+  'updateSettings': IDL.Func([IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text], [], []),
+  'getSettings': IDL.Func([], [SiteSettings], ['query']),
+});
 
 export const idlInitArgs = [];
 
-export const idlFactory = ({ IDL }) => { return IDL.Service({}); };
+export const idlFactory = ({ IDL }) => {
+  const AnimeEntry = IDL.Record({
+    'id': IDL.Nat,
+    'title': IDL.Text,
+    'description': IDL.Text,
+    'thumbnailBlobId': IDL.Text,
+    'videoBlobId': IDL.Text,
+  });
+  const SiteSettings = IDL.Record({
+    'siteName': IDL.Text,
+    'logoUrl': IDL.Text,
+    'heroBlobId': IDL.Text,
+    'bgBlobId': IDL.Text,
+    'bgType': IDL.Text,
+    'bgColor': IDL.Text,
+  });
+  return IDL.Service({
+    'addAnime': IDL.Func([IDL.Text, IDL.Text, IDL.Text, IDL.Text], [IDL.Nat], []),
+    'updateAnime': IDL.Func([IDL.Nat, IDL.Text, IDL.Text, IDL.Text, IDL.Text], [IDL.Bool], []),
+    'deleteAnime': IDL.Func([IDL.Nat], [IDL.Bool], []),
+    'getAllAnime': IDL.Func([], [IDL.Vec(AnimeEntry)], ['query']),
+    'getAnime': IDL.Func([IDL.Nat], [IDL.Opt(AnimeEntry)], ['query']),
+    'updateSettings': IDL.Func([IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text], [], []),
+    'getSettings': IDL.Func([], [SiteSettings], ['query']),
+  });
+};
 
 export const init = ({ IDL }) => { return []; };

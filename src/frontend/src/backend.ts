@@ -90,9 +90,58 @@ export class ExternalBlob {
     }
 }
 export interface backendInterface {
+    addAnime(title: string, description: string, thumbnailBlobId: string, videoBlobId: string): Promise<bigint>;
+    updateAnime(id: bigint, title: string, description: string, thumbnailBlobId: string, videoBlobId: string): Promise<boolean>;
+    deleteAnime(id: bigint): Promise<boolean>;
+    getAllAnime(): Promise<any[]>;
+    getAnime(id: bigint): Promise<any>;
+    updateSettings(siteName: string, logoUrl: string, heroBlobId: string, bgBlobId: string, bgType: string, bgColor: string): Promise<void>;
+    getSettings(): Promise<any>;
 }
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
+
+    async addAnime(title, description, thumbnailBlobId, videoBlobId) {
+        try {
+            return await this.actor.addAnime(title, description, thumbnailBlobId, videoBlobId);
+        } catch(e) { if (this.processError) this.processError(e); throw e; }
+    }
+
+    async updateAnime(id, title, description, thumbnailBlobId, videoBlobId) {
+        try {
+            return await this.actor.updateAnime(id, title, description, thumbnailBlobId, videoBlobId);
+        } catch(e) { if (this.processError) this.processError(e); throw e; }
+    }
+
+    async deleteAnime(id) {
+        try {
+            return await this.actor.deleteAnime(id);
+        } catch(e) { if (this.processError) this.processError(e); throw e; }
+    }
+
+    async getAllAnime() {
+        try {
+            return await this.actor.getAllAnime();
+        } catch(e) { if (this.processError) this.processError(e); throw e; }
+    }
+
+    async getAnime(id) {
+        try {
+            return await this.actor.getAnime(id);
+        } catch(e) { if (this.processError) this.processError(e); throw e; }
+    }
+
+    async updateSettings(siteName, logoUrl, heroBlobId, bgBlobId, bgType, bgColor) {
+        try {
+            return await this.actor.updateSettings(siteName, logoUrl, heroBlobId, bgBlobId, bgType, bgColor);
+        } catch(e) { if (this.processError) this.processError(e); throw e; }
+    }
+
+    async getSettings() {
+        try {
+            return await this.actor.getSettings();
+        } catch(e) { if (this.processError) this.processError(e); throw e; }
+    }
 }
 export interface CreateActorOptions {
     agent?: Agent;
